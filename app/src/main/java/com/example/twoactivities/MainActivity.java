@@ -1,47 +1,36 @@
 package com.example.twoactivities;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE =
-            "com.example.twoactivities.extra.MESSAGE";
+    private int mCount = 0;
+    private TextView mShowCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mShowCount = (TextView) findViewById(R.id.show_count);
     }
 
-    public void StartActivity(View view) {
-        Intent intent = new Intent(this,SecondActivity.class);
-        /*switch(view.getId()){
-            case R.id.button_one:
-                intent.putExtra(message, 1);
-                Log.d("button","button1");
-                break;
-            case R.id.button_two:
-                intent.putExtra(message, 2);
-                Log.d("button","button2");
-                break;
-            case R.id.button_three:
-                intent.putExtra(message, 3);
-                Log.d("button","button3");
-                break;
-        }
+    public void showToast(View view) {
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra("Count", mShowCount.getText().toString());
         startActivity(intent);
-        */
-        if(view.getId()==R.id.button_one){
-            intent.putExtra(EXTRA_MESSAGE, 1);
+    }
+
+    public void countUp(View view) {
+        mCount++;
+        if (mShowCount != null) {
+            mShowCount.setText(Integer.toString(mCount));
         }
-        else if(view.getId()==R.id.button_two){
-            intent.putExtra(EXTRA_MESSAGE, 2);
-        }
-        else if(view.getId()==R.id.button_three){
-            intent.putExtra(EXTRA_MESSAGE, 3);
-        }
-        startActivity(intent);
     }
 }
